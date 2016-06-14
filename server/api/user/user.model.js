@@ -21,7 +21,10 @@ var UserSchema = new Schema({
     required: true
   },
   provider: String,
-  salt: String
+  salt: String,
+  schoolName: String,
+  highScore: String,
+  progress: [String]
 });
 
 /**

@@ -4,7 +4,8 @@ import mongoose from 'mongoose';
 
 var SchoolSchema = new mongoose.Schema({
   name: String,
-  info: String,
+  state: String,
+  city: String,
   active: Boolean
 });
 
