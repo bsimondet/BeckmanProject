@@ -6,7 +6,7 @@ module.exports = {
 
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://localhost/beckmenproject-dev'
+    uri: process.env.MONGODB_URI
   },
 
   // Seed database on startup
