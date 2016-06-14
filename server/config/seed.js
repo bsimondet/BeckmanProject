@@ -4,56 +4,59 @@
  */
 
 'use strict';
-import Thing from '../api/thing/thing.model';
 import User from '../api/user/user.model';
-
-Thing.find({}).remove()
-  .then(() => {
-    Thing.create({
-      name: 'Development Tools',
-      info: 'Integration with popular tools such as Bower, Grunt, Babel, Karma, ' +
-             'Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, ' +
-             'Stylus, Sass, and Less.'
-    }, {
-      name: 'Server and Client integration',
-      info: 'Built with a powerful and fun stack: MongoDB, Express, ' +
-             'AngularJS, and Node.'
-    }, {
-      name: 'Smart Build System',
-      info: 'Build system ignores `spec` files, allowing you to keep ' +
-             'tests alongside code. Automatic injection of scripts and ' +
-             'styles into your index.html'
-    }, {
-      name: 'Modular Structure',
-      info: 'Best practice client and server structures allow for more ' +
-             'code reusability and maximum scalability'
-    }, {
-      name: 'Optimized Build',
-      info: 'Build process packs up your templates as a single JavaScript ' +
-             'payload, minifies your scripts/css/images, and rewrites asset ' +
-             'names for caching.'
-    }, {
-      name: 'Deployment Ready',
-      info: 'Easily deploy your app to Heroku or Openshift with the heroku ' +
-             'and openshift subgenerators'
-    });
-  });
+import School from '../api/School/School.model';
 
 User.find({}).remove()
   .then(() => {
     User.create({
       provider: 'local',
       name: 'Test User',
-      email: 'test@example.com',
+      email: 'test@test.com',
       password: 'test'
-    }, {
-      provider: 'local',
-      role: 'admin',
-      name: 'Admin',
-      email: 'admin@example.com',
-      password: 'admin'
     })
     .then(() => {
       console.log('finished populating users');
     });
   });
+
+  School.find({}).remove()
+  .then(() => {
+    School.create({
+      name: "Prairie Point and 9th Grade Academy",
+      state: "IA",
+      city: "Cedar Point",
+      active: true
+    }, {
+      name: "Atlantic Middle School",
+      state: "IA",
+      city: "Atlantic",
+      active: true
+    }, {
+      name: "Charlotte Country Day School",
+      state: "NC",
+      city: "Charlotte",
+      active: true
+    }, {
+      name: "Minnetonka Middle West",
+      state: "MN",
+      city: "Minnetonka",
+      active: true
+    }, {
+      name: "Our Lady of the Presentation",
+      state: "MO",
+      city: "Lee's Summit",
+      active: true
+    },
+    {
+      name: "Red Oak Middle School",
+      state: "NC",
+      city: "Red Oak",
+      active: true
+    }, {
+      name: "Sauk Rapids-Rice Middle School",
+      state: "MN",
+      city: "Sauk Rapids",
+      active: true
+    })
+  })
