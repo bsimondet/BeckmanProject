@@ -11,9 +11,11 @@ User.find({}).remove()
   .then(() => {
     User.create({
       provider: 'local',
-      name: 'Test User',
+      firstname: 'User',
+      lastname: 'User',
       email: 'test@test.com',
-      password: 'test'
+      password: 'test',
+      schoolName: 'Sauk Rapids-Rice'
     })
     .then(() => {
       console.log('finished populating users');
@@ -26,37 +28,170 @@ User.find({}).remove()
       name: "Prairie Point and 9th Grade Academy",
       state: "IA",
       city: "Cedar Point",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     }, {
       name: "Atlantic Middle School",
       state: "IA",
       city: "Atlantic",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     }, {
       name: "Charlotte Country Day School",
       state: "NC",
       city: "Charlotte",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     }, {
       name: "Minnetonka Middle West",
       state: "MN",
       city: "Minnetonka",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     }, {
       name: "Our Lady of the Presentation",
       state: "MO",
       city: "Lee's Summit",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     },
     {
       name: "Red Oak Middle School",
       state: "NC",
       city: "Red Oak",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     }, {
       name: "Sauk Rapids-Rice Middle School",
       state: "MN",
       city: "Sauk Rapids",
-      active: true
+      active: true,
+      leaderboard: [{
+        studentName: "Tony Stark",
+        score: 100
+      }, {
+        studentName: "Steve Rogers",
+        score: 100000000000
+      }, {
+        studentName: "Bruce Banner",
+        score: 46.2
+      }, {
+        studentName: "Thor",
+        score: 42
+      }, {
+        studentName: "Natasha Romanoff",
+        score: 20000
+      }, {
+        studentName: "Clint Barton",
+        score: 2
+      }]
     })
   })

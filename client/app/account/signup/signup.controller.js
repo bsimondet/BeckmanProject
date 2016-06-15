@@ -5,6 +5,7 @@ class SignupController {
 
   constructor(Auth, $location, $http, socket) {
       this.Auth = Auth;
+      this.isLoggedIn = Auth.isLoggedIn;
       this.$location = $location;
       this.schoolList = [];
       this.$http = $http;
@@ -38,7 +39,7 @@ class SignupController {
         })
         .then(() => {
           // Account created, redirect to home
-          this.$location.path('/');
+          this.$location.path('/home');
         })
         .catch(err => {
           err = err.data;

@@ -7,7 +7,9 @@ class LoginController {
     this.submitted = false;
 
     this.Auth = Auth;
+    this.isLoggedIn = Auth.isLoggedIn;
     this.$location = $location;
+
   }
 
   login(form) {
@@ -20,7 +22,7 @@ class LoginController {
         })
         .then(() => {
           // Logged in, redirect to home
-          this.$location.path('/');
+          this.$location.path('/home');
         })
         .catch(err => {
           this.errors.other = err.message;
