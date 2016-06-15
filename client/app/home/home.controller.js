@@ -9,6 +9,7 @@ class HomeComponent {
         this.getCurrentUser = Auth.getCurrentUser();
         this.schoolList = [];
         this.leaderboard = [];
+
         this.$http.get('/api/Schools/')
           .then(response => {
             this.schoolList = response.data;
@@ -16,7 +17,6 @@ class HomeComponent {
             for (var i = 0; i < this.schoolList.length; i++) {
               if (this.schoolList[i].name == this.selectedSchool) {
                 this.leaderboard = this.schoolList[i].leaderboard;
-                console.log(this.leaderboard);
               }
             }
             this.socket.syncUpdates('School', this.schoolList);
