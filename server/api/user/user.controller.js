@@ -99,6 +99,23 @@ export function changePassword(req, res, next) {
     });
 }
 
+export function resetPassword(req, res, next) {
+  var userId = req.user._id;
+  var newPass = String(req.body.newPassword);
+
+  return User.findById(userId).exec()
+    .then(user => {
+        user.password = newPass;
+        return user.save()
+          .then(() => {
+            res.status(204).end();
+          })
+          .catch(validationError(res));
+      })
+    }
+
+
+
 /**
  * Get my info
  */

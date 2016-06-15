@@ -93,6 +93,19 @@
           .$promise;
       },
 
+      resetPassword(newPassword) {
+        return User.resetPassword({
+          id: currentUser._id
+        }, {
+          newPassword: newPassword
+        }, function() {
+          return safeCb(callback)(null);
+        }, function(err) {
+          return safeCb(callback)(err);
+        })
+        .$promise;
+      },
+
       /**
        * Gets all available info on a user
        *   (synchronous|asynchronous)
