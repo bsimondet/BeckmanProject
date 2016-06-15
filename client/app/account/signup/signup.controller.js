@@ -6,8 +6,19 @@ class SignupController {
   constructor(Auth, $location) {
       this.Auth = Auth;
       this.$location = $location;
+      this.schoolList = [];
     }
+
+    //$('.dropdown-toggle').dropdown()
+
     //start-non-standard
+    $onInit() {
+      this.$http.get('/api/Schools/')
+        .then(response => {
+          this.schoolList = response.data;
+          this.socket.syncUpdates('School', this.awesomeThings);
+        });
+    }
 
 
   register(form) {
