@@ -32,9 +32,15 @@
       <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
                                                 'has-error': form.name.$invalid && vm.submitted }">
       <label>School</label>
-      <select>
-        <option ng-repeat="x in SignupController.schoolList">{{x}}</option>
-      </select>
+      <div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+  {{vm.schoolSelected}}
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li ng-repeat="school in vm.schoolList"><a ng-click="vm.selectSchool(school.name)">{{school.name}}</a></li>
+  </ul>
+</div>
       <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
                 A school is required
       </p>
@@ -86,7 +92,7 @@
     </div>
 
     <div>
-      <input type="button" value="Submit" style="float: right;">
+      <button class="btn btn-register" value="Submit" style="float: right;">Submit</button>
 <!--      <button class="btn btn-inverse btn-lg btn-register" type="submit">
             Sign up
       </button> -->
