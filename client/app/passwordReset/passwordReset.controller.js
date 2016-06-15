@@ -4,7 +4,15 @@
 class PasswordResetComponent {
   constructor() {
     this.message = 'Hello';
+    this.initialView = true;
+    this.secondView = false;
   }
+  changeView(){
+    this.initialView = !this.initialView;
+    this.secondView = !this.secondView;
+  }
+
+
 }
 
 angular.module('beckmenProjectApp')
