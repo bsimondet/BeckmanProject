@@ -4,14 +4,18 @@
 
   class MainController {
 
-    constructor($http, $scope, socket) {
+    constructor($http, $scope, socket, Auth, $location) {
       this.$http = $http;
       this.socket = socket;
+      this.Auth = Auth;
+      this.$location = $location;
+      this.isLoggedIn = Auth.isLoggedIn;
       this.awesomeThings = [];
 
       $scope.$on('$destroy', function() {
         socket.unsyncUpdates('thing');
       });
+
     }
 
     $onInit() {

@@ -14,7 +14,7 @@ angular.module('beckmenProjectApp')
         controller: function($location, $route, Auth) {
           var referrer = $route.current.params.referrer || $route.current.referrer || '/';
           Auth.logout();
-          $location.path(referrer);
+          $location.path('/');
         }
       })
       .when('/signup', {
