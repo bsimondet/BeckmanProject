@@ -9,6 +9,13 @@ class NavbarController {
     this.isLoggedIn = Auth.isLoggedIn;
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
+    this.menu = [{
+      title: "Pacman",
+      link: "/pacman"
+    }, {
+      title: "Tetris",
+      link: "/tetris"
+    }]
   }
 
   isActive(route) {
