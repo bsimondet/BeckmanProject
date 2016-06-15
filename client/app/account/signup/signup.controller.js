@@ -17,6 +17,7 @@ class SignupController {
         .then(response => {
           this.schoolList = response.data;
           this.socket.syncUpdates('School', this.awesomeThings);
+          console.log(response.data);
         });
     }
 
