@@ -1,0 +1,25 @@
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1 align="center" style="color:blue">Welcome to Code Arcade</h1>
+  </div>
+</header>
+
+<div class="container">
+  <h2 align="center">Here's your school's leaderboard:</h2>
+</br>
+</br>
+<h2>The leaderboard has {{HomeController.leaderboard}} entries</h2>
+  <table style="width:50%" border="1" align="center">
+  <tr>
+    <td align="center" style="font-size:140%">Student Name</td>
+    <td align="center" style="font-size:140%">Score</td>
+  </tr>
+  <tr ng-repeat="leader in HomeController.leaderboard">
+    <td>test{{leader.studentName}}</td>
+    <td>test{{leader.score}}</td>
+  </tr>
+</table>
+</div>
+
+
+<!--| orderBy:'score' | limitTo:10-->
