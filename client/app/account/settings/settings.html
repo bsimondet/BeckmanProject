@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
+      <!-- The password must match the current password -->
       <h1>Change Password</h1>
     </div>
     <div class="col-sm-12">
@@ -10,9 +11,18 @@
           <label>Current Password</label>
 
           <input type="password" name="password" class="form-control" ng-model="vm.user.oldPassword"
-                 mongoose-error/>
+                ng.minlength="8"
+                match="vm.user.password"
+                mongoose-error/>
           <p class="help-block" ng-show="form.password.$error.mongoose">
               {{ vm.errors.other }}
+          </p>
+          <p class="help-block" ng-show="form.password.$error.minlength">
+              Password must be at least 8 characters.
+          </p>
+
+          <p class="help-block" ng-show="form.password.$error.match && vm.submitted">
+              Current Password must match the existing password.
           </p>
         </div>
 
@@ -20,11 +30,11 @@
           <label>New Password</label>
 
           <input type="password" name="newPassword" class="form-control" ng-model="vm.user.newPassword"
-                 ng-minlength="3"
+                 ng-minlength="8"
                  required/>
           <p class="help-block"
              ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || vm.submitted)">
-            Password must be at least 3 characters.
+            Password must be at least 8 characters.
           </p>
         </div>
 
