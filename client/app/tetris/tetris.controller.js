@@ -7,7 +7,8 @@ class TetrisComponent {
     this.$http = $http;
     this.socket = socket;
 
-    this.canvas = document.getElementsByTagName('canvas');
+    // this.canvas = document.getElementsByTagName('canvas')[0];
+    this.canvas = document.getElementById('canvas');
     this.ctx = this.canvas.getContext( '2d' );
     this.W = 300;
     this.H = 600;
@@ -23,25 +24,55 @@ class TetrisComponent {
     this.currentY; // position of current shape
     this.shapes = [
     [ 1, 1, 1, 1 ],
-    [ 1, 1, 1, 0,
-      1 ],
-    [ 1, 1, 1, 0,
-      0, 0, 1 ],
-    [ 1, 1, 0, 0,
-      1, 1 ],
-    [ 1, 1, 0, 0,
-      0, 1, 1 ],
-    [ 0, 1, 1, 0,
-      1, 1 ],
-    [ 0, 1, 0, 0,
-      1, 1, 1 ]
+    [ 1, 1, 1, 0, 1 ],
+    [ 1, 1, 1, 0, 0, 0, 1 ],
+    [ 1, 1, 0, 0, 1, 1 ],
+    [ 1, 1, 0, 0, 0, 1, 1 ],
+    [ 0, 1, 1, 0, 1, 1 ],
+    [ 0, 1, 0, 0, 1, 1, 1 ]
     ];
-    this.colors = [
-      'cyan', 'orange', 'blue', 'yellow', 'red', 'green', 'purple'
-    ];
+    this.colors = ['cyan', 'orange', 'blue', 'yellow', 'red', 'green', 'purple'];
+    this.init();
+    this.newShape();
     setInterval( this.render(), 30 );
     this.newGame();
-  }
+  };
+
+  // checks if the resulting position of current shape will be feasible
+  valid(offsetX, offsetY, newCurrent) {
+      offsetX = offsetX || 0;
+      offsetY = offsetY || 0;
+      offsetX = this.currentX + offsetX;
+      offsetY = this.currentY + offsetY;
+      newCurrent = newCurrent || this.current;
+
+      for ( var y = 0; y < 4; ++y ) {
+          for ( var x = 0; x < 4; ++x ) {
+              if ( newCurrent[ y ][ x ] ) {
+                  if ( typeof this.board[ y + this.offsetY ] === 'undefined'
+                    || typeof this.board[ y + this.offsetY ][ x + this.offsetX ] === 'undefined'
+                    || this.board[ y + offsetY ][ x + offsetX ]
+                    || this.x + this.offsetX < 0
+                    || this.y + this.offsetY >= this.ROWS
+                    || this.x + this.offsetX >= this.COLS ) {
+                      if (this.offsetY === 1) {
+                        this.lose = true;
+                      }// lose if the current shape at the top row when checked
+                      return false;
+                  }
+              }
+          }
+      }
+      return true;
+  };
+
+  newGame() {
+      clearInterval(this.interval);
+      this.init();
+      this.newShape();
+      this.lose = false;
+      this.interval = setInterval( this.tick, 250 );
+  };
 
   // creates a new 4x4 shape in global variable 'current'
 // 4x4 so as to cover the size when the shape is rotated
@@ -65,7 +96,7 @@ newShape() {
     // position where the shape will evolve
     this.currentX = 5;
     this.currentY = 0;
-}
+};
 
 // clears the board
 init() {
@@ -75,11 +106,12 @@ init() {
             this.board[ y ][ x ] = 0;
         }
     }
-}
+};
 
 // keep the element moving down, creating new shapes and clearing lines
 tick() {
-    if ( this.valid( 0, 1 ) ) {
+    var result = this.valid(0, 1);
+    if ( result ) {
         ++this.currentY;
     }
     // if the element settled
@@ -92,7 +124,7 @@ tick() {
         }
         this.newShape();
     }
-}
+};
 
 // stop shape at its position and fix it to board
 freeze() {
@@ -103,7 +135,7 @@ freeze() {
             }
         }
     }
-}
+};
 
 // returns rotates the rotated shape 'current' perpendicularly anticlockwise
 rotate( current ) {
@@ -115,7 +147,7 @@ rotate( current ) {
         }
     }
     return newCurrent;
-}
+};
 
 // check if any lines are filled and clear them
 clearLines() {
@@ -137,7 +169,7 @@ clearLines() {
             ++y;
         }
     }
-}
+};
 
 keyPress( key ) {
     switch ( key ) {
@@ -163,57 +195,24 @@ keyPress( key ) {
             }
             break;
     }
-}
-
-// checks if the resulting position of current shape will be feasible
-valid( offsetX, offsetY, newCurrent ) {
-    offsetX = offsetX || 0;
-    offsetY = offsetY || 0;
-    offsetX = this.currentX + offsetX;
-    offsetY = this.currentY + offsetY;
-    newCurrent = newCurrent || this.current;
-
-
-
-    for ( var y = 0; y < 4; ++y ) {
-        for ( var x = 0; x < 4; ++x ) {
-            if ( newCurrent[ y ][ x ] ) {
-                if ( typeof this.board[ y + this.offsetY ] === 'undefined'
-                  || typeof this.board[ y + this.offsetY ][ x + this.offsetX ] === 'undefined'
-                  || this.board[ y + offsetY ][ x + offsetX ]
-                  || this.x + this.offsetX < 0
-                  || this.y + this.offsetY >= this.ROWS
-                  || this.x + this.offsetX >= this.COLS ) {
-                    if (this.offsetY === 1) {
-                      this.lose = true;
-                    }// lose if the current shape at the top row when checked
-                    return false;
-                }
-            }
-        }
-    }
-    return true;
-}
-
-newGame() {
-    clearInterval(this.interval);
-    this.init();
-    this.newShape();
-    lose = false;
-    this.interval = setInterval( tick, 250 );
-}
-
-
+};
 
   // draw a single square at (x, y)
   drawBlock( x, y ) {
     this.ctx.fillRect( this.BLOCK_W * x, this.BLOCK_H * y, this.BLOCK_W - 1 , this.BLOCK_H - 1 );
     this.ctx.strokeRect( this.BLOCK_W * x, this.BLOCK_H * y, this.BLOCK_W - 1 , this.BLOCK_H - 1 );
-  }
+  };
 
   // draws the board and the moving shape
   render() {
     this.ctx.clearRect( 0, 0, this.W, this.H );
+
+    for ( var y = 0; y < this.ROWS; ++y ) {
+        this.board[ y ] = [];
+        for ( var x = 0; x < this.COLS; ++x ) {
+            this.board[ y ][ x ] = 0;
+        }
+    }
 
     this.ctx.strokeStyle = 'black';
     for ( var x = 0; x < this.COLS; ++x ) {
@@ -235,7 +234,7 @@ newGame() {
             }
         }
     }
-}
+};
 
 
 
@@ -252,7 +251,7 @@ newGame() {
   //   }
   // };
 
-}
+};
 
 angular.module('beckmenProjectApp')
   .component('tetris', {

@@ -93,7 +93,7 @@
           .$promise;
       },
 
-      resetPassword(newPassword) {
+      resetPassword(newPassword, id) {
         return User.resetPassword({
           id: currentUser._id
         }, {
