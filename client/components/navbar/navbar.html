@@ -20,6 +20,8 @@
       <ul class="nav navbar-nav navbar-right">
 <!--        <li ng-hide="nav.isLoggedIn()" ng-class="{active: nav.isActive('/signup')}"><a href="/signup">Sign up</a></li>
         <li ng-hide="nav.isLoggedIn()" ng-class="{active: nav.isActive('/login')}"><a href="/login">Login</a></li> -->
+        <li ng-hide="nav.isLoggedIn()"><a href="/signup"><p class="navbar-text">Sign Up</p></a></li>
+        <li ng-hide="nav.isLoggedIn()"><a href="/login"><p class="navbar-text">Login</p></a></li>
         <li ng-show="nav.isLoggedIn()"><p class="navbar-text">Hello {{ nav.getCurrentUser().firstname }}</p> </li>
         <li ng-show="nav.isLoggedIn()" ng-class="{active: nav.isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
         <li ng-show="nav.isLoggedIn()"><a href="/logout">Logout</a></li>
