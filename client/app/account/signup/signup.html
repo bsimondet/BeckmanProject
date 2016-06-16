@@ -4,16 +4,21 @@
       <h1>Sign up</h1>
     </div>
 
-      <div class="col-sm-12">
+      <div class="form-group">
         <form class="form" name="form" ng-submit="vm.register(form)" novalidate>
         <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
                                                   'has-error': form.name.$invalid && vm.submitted }">
         <label>First Name</label>
-        <input type="text" name="name" class="form-control" ng-model="vm.user.firstname" autofocus="autofocus"
-                       required/>
-        <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
-                  A first name is required
+        <input type="text" name="firstname" class="form-control" ng-model="vm.user.firstname" autofocus="autofocus"
+                ng-maxlength="25"
+                required/>
+        <p class="help-block" ng-show="form.firstname.$error.required && vm.submitted" >
+                  A first name is required.
         </p>
+        <p class="help-block" ng-show="form.firstname.$error.maxlength && vm.submitted" >
+                  Name must be less than 25 characters.
+        </p>
+
       </div>
 
     <div class="form-group">
@@ -21,10 +26,15 @@
       <div class="form-group" ng-class="{ 'has-success': form.name.$valid && vm.submitted,
                                                 'has-error': form.name.$invalid && vm.submitted }">
       <label>Last Name</label>
-      <input type="text" name="name" class="form-control" ng-model="vm.user.lastname"
-                     required/>
+      <input type="text" name="lastname" class="form-control" ng-model="vm.user.lastname"
+                required
+                ng-maxlength="25"
+                mongoose-error/>
       <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
-                A last name is required
+                A last name is required.
+      </p>
+      <p class="help-block" ng-show="form.lastname.$error.maxlength && vm.submitted">
+            Password must be less than 25 characters.
       </p>
     </div>
 
@@ -51,6 +61,7 @@
       <label>Email</label>
       <input type="email" name="email" class="form-control" ng-model="vm.user.email"
                  required
+                 ng-maxlength="50"
                  mongoose-error/>
       <p class="help-block" ng-show="form.email.$error.email && vm.submitted">
             Doesn't look like a valid email.
@@ -58,9 +69,13 @@
       <p class="help-block" ng-show="form.email.$error.required && vm.submitted">
             What's your email address?
       </p>
+      <p class="help-block" ng-show="form.email.$error.maxlength && vm.submitted">
+            Must be less than 50 characters.
+      </p>
       <p class="help-block" ng-show="form.email.$error.mongoose">
             {{ vm.errors.email }}
       </p>
+
     </div>
 
     <div class="form-group" ng-class="{ 'has-success': form.password.$valid && vm.submitted,
@@ -68,11 +83,17 @@
       <label>Password</label>
       <input type="password" name="password" class="form-control" ng-model="vm.user.password"
                  ng-minlength="3"
+                 ng-maxlength="25"
                  required
                  mongoose-error/>
       <p class="help-block"
-             ng-show="(form.password.$error.minlength || form.password.$error.required) && vm.submitted">
+             ng-show="(form.password.$error.minlength || form.password.$error.required)
+              && vm.submitted">
             Password must be at least 3 characters.
+      </p>
+      <p class="help-block"
+             ng-show="form.password.$error.maxlength && vm.submitted">
+            Password must be less than 25 characters.
       </p>
       <p class="help-block" ng-show="form.password.$error.mongoose">
             {{ vm.errors.password }}
