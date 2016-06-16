@@ -1,24 +1,25 @@
 <audio id="clearsound" src="sound/pop.ogg" preload="auto"></audio>
 <div class="container">
 
-  <div class="col-xs-3" style="width:45%;border:1px;">
+  <div class="col-xs-3" style="width:45%;border:1px solid black;">
     <canvas id="canvas" width='300px' height='600px' align="center"></canvas>
   </div>
 
-  <div class="col-xs-3" style="width:45%">
+  <div class="col-xs-3" style="width:45%;border:1px solid black;">
     <h3 style="font-color:red;">Modify the code below by clicking and dragging the boxes to the values!</h3>
   </br>
     <!-- <code> -->
       <h4>class Tetris {</h4>
-          <h4>width = </h4><span class="div1" id="width" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></span>
-          <h4>height = </h4><span class="div1" id="height" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></span>
-          <h4>columns = </h4><span class="div1" id="columns" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></span>
-          <h4>rows = </h4><span class="div1" id="rows" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></span>
-          <h4>colors = </h4><span class="div1" id="color" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></span>
+          <h4>width = </h4><div style="border:1px solid black;" class="div1" id="width" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></br></br></div>
+          <h4>height = </h4><div style="border:1px solid black;" class="div1" id="height" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></br></br></div>
+          <h4>columns = </h4><div style="border:1px solid black;" class="div1" id="columns" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></br></br></div>
+          <h4>rows = </h4><div style="border:1px solid black;" class="div1" id="rows" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></br></br></div>
+          <h4>colors = </h4><div style="border:1px solid black;" class="div1" id="color" ondrop="$ctrl.drop(event)" ondragover="$ctrl.allowDrop(event)"></br></br></div>
       <h4>}
     <!-- </code> -->
   </div>
-
+</br>
+</br>
   <div class="container" style="width:85%">
     <button class="btn" id="300" draggable="true" ondragstart="$ctrl.drag(event)">300</button>
     <button class="btn" id="600" draggable="true" ondragstart="$ctrl.drag(event)">600</button>

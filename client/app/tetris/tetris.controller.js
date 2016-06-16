@@ -2,7 +2,7 @@
 (function(){
 
 class TetrisComponent {
-  constructor($http, socket) {
+  constructor(Auth, $http, socket) {
     //this.document = document;
     this.$http = $http;
     this.socket = socket;
@@ -67,16 +67,17 @@ class TetrisComponent {
       offsetX = this.currentX + offsetX;
       offsetY = this.currentY + offsetY;
       newCurrent = newCurrent || this.current;
-
+      console.log("checking if position is valid");
+      console.log(this.currentX + " is the current x and " + this.currentY + " is the currentY");
       for ( var y = 0; y < 4; ++y ) {
           for ( var x = 0; x < 4; ++x ) {
               if ( newCurrent[ y ][ x ] ) {
                   if ( typeof this.board[ y + this.offsetY ] === 'undefined'
                     || typeof this.board[ y + this.offsetY ][ x + this.offsetX ] === 'undefined'
                     || this.board[ y + offsetY ][ x + offsetX ]
-                    || this.x + this.offsetX < 0
-                    || this.y + this.offsetY >= this.ROWS
-                    || this.x + this.offsetX >= this.COLS ) {
+                    || x + this.offsetX < 0
+                    || y + this.offsetY >= this.ROWS
+                    || x + this.offsetX >= this.COLS ) {
                       if (this.offsetY === 1) {
                         this.lose = true;
                       }// lose if the current shape at the top row when checked
@@ -89,17 +90,19 @@ class TetrisComponent {
   }
 
   newGame() {
+      console.log("starting new game");
       clearInterval(this.interval);
       this.init();
       this.newShape();
       this.render();
       this.lose = false;
-      this.interval = setInterval(this.tick(), 250);
+      this.interval = setInterval(this.tick(), 30);
   }
 
   // creates a new 4x4 shape in global variable 'current'
   // 4x4 so as to cover the size when the shape is rotated
   newShape() {
+    console.log("making new shape");
     var id = Math.floor( Math.random() * this.shapes.length );
     var shape = this.shapes[ id ]; // maintain id for color filling
 
@@ -124,6 +127,7 @@ class TetrisComponent {
   // clears the board
 
   init() {
+    console.log("initiating game");
     for ( var y = 0; y < this.ROWS; ++y ) {
         this.board[ y ] = [];
         for ( var x = 0; x < this.COLS; ++x ) {
@@ -134,8 +138,10 @@ class TetrisComponent {
 
   // keep the element moving down, creating new shapes and clearing lines
   tick() {
+    console.log("doing one tick");
     //var result = this.valid(0, 1);
     var result = this.valid(0,1);
+    console.log("the result is " + result);
     if ( result ) {
         ++this.currentY;
     }
@@ -153,6 +159,7 @@ class TetrisComponent {
 
   // stop shape at its position and fix it to board
   freeze() {
+    console.log("freezing shape");
     for ( var y = 0; y < 4; ++y ) {
         for ( var x = 0; x < 4; ++x ) {
             if ( this.current[ y ][ x ] ) {
@@ -164,6 +171,7 @@ class TetrisComponent {
 
   // returns rotates the rotated shape 'current' perpendicularly anticlockwise
   rotate( current ) {
+    console.log("rotating current shape");
     var newCurrent = [];
     for ( var y = 0; y < 4; ++y ) {
         newCurrent[ y ] = [];
@@ -176,6 +184,7 @@ class TetrisComponent {
 
   // check if any lines are filled and clear them
   clearLines() {
+    console.log("clear lines");
     for ( var y = this.ROWS - 1; y >= 0; --y ) {
         var rowFilled = true;
         for ( var x = 0; x < this.COLS; ++x ) {
@@ -196,9 +205,8 @@ class TetrisComponent {
     }
   }
 
-
-
   keyPress( key ) {
+    console.log("key was pressed");
     switch ( key ) {
         case 'left':
             if ( this.valid( -1 ) ) {
@@ -251,7 +259,6 @@ class TetrisComponent {
             }
         }
     }
-
     this.ctx.fillStyle = 'red';
     this.ctx.strokeStyle = 'black';
     for ( y = 0; y < 4; ++y ) {
