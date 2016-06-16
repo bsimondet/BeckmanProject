@@ -29,14 +29,36 @@ class TetrisComponent {
     [ 1, 1, 0, 0, 1, 1 ],
     [ 1, 1, 0, 0, 0, 1, 1 ],
     [ 0, 1, 1, 0, 1, 1 ],
-    [ 0, 1, 0, 0, 1, 1, 1 ]
-    ];
+    [ 0, 1, 0, 0, 1, 1, 1 ]];
     this.colors = ['cyan', 'orange', 'blue', 'yellow', 'red', 'green', 'purple'];
-    this.init();
-    this.newShape();
-    setInterval( this.render(), 30 );
+    // document.body.onkeydown(e) {
+    //   var keys = {
+    //       37: 'left',
+    //       39: 'right',
+    //       40: 'down',
+    //       38: 'rotate'
+    //   };
+    //   if ( typeof keys[ e.keyCode ] != 'undefined' ) {
+    //       keyPress( keys[ e.keyCode ] );
+    //       render();
+    //   }
+    // }
     this.newGame();
-  };
+  }
+
+  allowDrop(ev) {
+      ev.preventDefault();
+  }
+
+  drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  drop(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+  }
 
   // checks if the resulting position of current shape will be feasible
   valid(offsetX, offsetY, newCurrent) {
@@ -64,19 +86,20 @@ class TetrisComponent {
           }
       }
       return true;
-  };
+  }
 
   newGame() {
       clearInterval(this.interval);
       this.init();
       this.newShape();
+      this.render();
       this.lose = false;
-      this.interval = setInterval( this.tick, 250 );
-  };
+      this.interval = setInterval(this.tick(), 250);
+  }
 
   // creates a new 4x4 shape in global variable 'current'
-// 4x4 so as to cover the size when the shape is rotated
-newShape() {
+  // 4x4 so as to cover the size when the shape is rotated
+  newShape() {
     var id = Math.floor( Math.random() * this.shapes.length );
     var shape = this.shapes[ id ]; // maintain id for color filling
 
@@ -96,21 +119,23 @@ newShape() {
     // position where the shape will evolve
     this.currentX = 5;
     this.currentY = 0;
-};
+  }
 
-// clears the board
-init() {
+  // clears the board
+
+  init() {
     for ( var y = 0; y < this.ROWS; ++y ) {
         this.board[ y ] = [];
         for ( var x = 0; x < this.COLS; ++x ) {
             this.board[ y ][ x ] = 0;
         }
     }
-};
+  }
 
-// keep the element moving down, creating new shapes and clearing lines
-tick() {
-    var result = this.valid(0, 1);
+  // keep the element moving down, creating new shapes and clearing lines
+  tick() {
+    //var result = this.valid(0, 1);
+    var result = this.valid(0,1);
     if ( result ) {
         ++this.currentY;
     }
@@ -124,21 +149,21 @@ tick() {
         }
         this.newShape();
     }
-};
+  }
 
-// stop shape at its position and fix it to board
-freeze() {
+  // stop shape at its position and fix it to board
+  freeze() {
     for ( var y = 0; y < 4; ++y ) {
         for ( var x = 0; x < 4; ++x ) {
             if ( this.current[ y ][ x ] ) {
                 this.board[ y + this.currentY ][ x + this.currentX ] = this.current[ y ][ x ];
             }
         }
-    }
-};
+      }
+  }
 
-// returns rotates the rotated shape 'current' perpendicularly anticlockwise
-rotate( current ) {
+  // returns rotates the rotated shape 'current' perpendicularly anticlockwise
+  rotate( current ) {
     var newCurrent = [];
     for ( var y = 0; y < 4; ++y ) {
         newCurrent[ y ] = [];
@@ -147,10 +172,10 @@ rotate( current ) {
         }
     }
     return newCurrent;
-};
+  }
 
-// check if any lines are filled and clear them
-clearLines() {
+  // check if any lines are filled and clear them
+  clearLines() {
     for ( var y = this.ROWS - 1; y >= 0; --y ) {
         var rowFilled = true;
         for ( var x = 0; x < this.COLS; ++x ) {
@@ -169,9 +194,11 @@ clearLines() {
             ++y;
         }
     }
-};
+  }
 
-keyPress( key ) {
+
+
+  keyPress( key ) {
     switch ( key ) {
         case 'left':
             if ( this.valid( -1 ) ) {
@@ -195,28 +222,29 @@ keyPress( key ) {
             }
             break;
     }
-};
+  }
 
   // draw a single square at (x, y)
   drawBlock( x, y ) {
     this.ctx.fillRect( this.BLOCK_W * x, this.BLOCK_H * y, this.BLOCK_W - 1 , this.BLOCK_H - 1 );
     this.ctx.strokeRect( this.BLOCK_W * x, this.BLOCK_H * y, this.BLOCK_W - 1 , this.BLOCK_H - 1 );
-  };
+  }
 
   // draws the board and the moving shape
   render() {
     this.ctx.clearRect( 0, 0, this.W, this.H );
-
-    for ( var y = 0; y < this.ROWS; ++y ) {
+    var y = 0;
+    var x = 0;
+    for ( y = 0; y < this.ROWS; ++y ) {
         this.board[ y ] = [];
-        for ( var x = 0; x < this.COLS; ++x ) {
+        for ( x = 0; x < this.COLS; ++x ) {
             this.board[ y ][ x ] = 0;
         }
     }
 
     this.ctx.strokeStyle = 'black';
-    for ( var x = 0; x < this.COLS; ++x ) {
-        for ( var y = 0; y < this.ROWS; ++y ) {
+    for ( x = 0; x < this.COLS; ++x ) {
+        for ( y = 0; y < this.ROWS; ++y ) {
             if ( this.board[ y ][ x ] ) {
                 this.ctx.fillStyle = this.colors[ this.board[ y ][ x ] - 1 ];
                 this.drawBlock( x, y );
@@ -234,24 +262,10 @@ keyPress( key ) {
             }
         }
     }
-};
+  }
 
 
-
-  // document.body.onkeydown = function( e ) {
-  //   var keys = {
-  //       37: 'left',
-  //       39: 'right',
-  //       40: 'down',
-  //       38: 'rotate'
-  //   };
-  //   if ( typeof keys[ e.keyCode ] != 'undefined' ) {
-  //       keyPress( keys[ e.keyCode ] );
-  //       render();
-  //   }
-  // };
-
-};
+}
 
 angular.module('beckmenProjectApp')
   .component('tetris', {
