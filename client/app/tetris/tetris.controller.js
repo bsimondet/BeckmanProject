@@ -4,8 +4,10 @@
 class TetrisComponent {
   constructor(Auth, $http, socket) {
     //this.document = document;
+    console.log("calling constructor");
     this.$http = $http;
     this.socket = socket;
+    //this.$window = $window;
 
     // this.canvas = document.getElementsByTagName('canvas')[0];
     this.canvas = document.getElementById('canvas');
@@ -67,14 +69,12 @@ class TetrisComponent {
       offsetX = this.currentX + offsetX;
       offsetY = this.currentY + offsetY;
       newCurrent = newCurrent || this.current;
-      console.log("checking if position is valid");
-      console.log(this.currentX + " is the current x and " + this.currentY + " is the currentY");
       for ( var y = 0; y < 4; ++y ) {
           for ( var x = 0; x < 4; ++x ) {
               if ( newCurrent[ y ][ x ] ) {
-                  if ( typeof this.board[ y + this.offsetY ] === 'undefined'
-                    || typeof this.board[ y + this.offsetY ][ x + this.offsetX ] === 'undefined'
-                    || this.board[ y + offsetY ][ x + offsetX ]
+                  if ( //typeof this.board[ y + this.offsetY ] === 'undefined'
+                    /*||this.board[ y + this.offsetY ][ x + this.offsetX ] === 'undefined'
+                    || */this.board[ y + offsetY ][ x + offsetX ]
                     || x + this.offsetX < 0
                     || y + this.offsetY >= this.ROWS
                     || x + this.offsetX >= this.COLS ) {
@@ -96,7 +96,7 @@ class TetrisComponent {
       this.newShape();
       this.render();
       this.lose = false;
-      this.interval = setInterval(this.tick(), 30);
+      this.interval = window.setInterval(this.tick(), 1000);
   }
 
   // creates a new 4x4 shape in global variable 'current'
@@ -140,10 +140,13 @@ class TetrisComponent {
   tick() {
     console.log("doing one tick");
     //var result = this.valid(0, 1);
-    var result = this.valid(0,1);
-    console.log("the result is " + result);
+    var result = this.valid(0,1, this.current);
+    // var result = true;
     if ( result ) {
         ++this.currentY;
+        this.render()
+        this.tick().delay(1000);
+        //window.setTimeout(this.tick(), 1000);
     }
     // if the element settled
     else {

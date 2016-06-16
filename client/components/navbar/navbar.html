@@ -7,9 +7,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/home" class="navbar-brand">Code Arcade</a>
+      <a href="/home" class="navbar-brand"><img src="assets/images/logoKeyotProj.jpg" width=5% length=5%>Code Arcade</a>
     </div>
-    <div uib-collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+    <div uib-collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main" align="center">
       <ul class="nav navbar-nav">
         <li ng-show="nav.isLoggedIn()" ng-repeat="item in nav.menu" ng-class="{active: nav.isActive(item.link)}">
             <a ng-href="{{item.link}}">{{item.title}}</a>

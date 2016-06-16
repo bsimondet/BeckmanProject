@@ -10,6 +10,9 @@ class NavbarController {
     this.isAdmin = Auth.isAdmin;
     this.getCurrentUser = Auth.getCurrentUser;
     this.menu = [{
+      title: "About",
+      link: "/aboutPage"
+    }, {
       title: "Pacman",
       link: "/pacman"
     }, {
