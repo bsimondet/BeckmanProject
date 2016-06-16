@@ -82,14 +82,14 @@
                                             'has-error': form.password.$invalid && vm.submitted }">
       <label>Password</label>
       <input type="password" name="password" class="form-control" ng-model="vm.user.password"
-                 ng-minlength="3"
+                 ng-minlength="8"
                  ng-maxlength="25"
                  required
                  mongoose-error/>
       <p class="help-block"
              ng-show="(form.password.$error.minlength || form.password.$error.required)
               && vm.submitted">
-            Password must be at least 3 characters.
+            Password must be at least 8 characters.
       </p>
       <p class="help-block"
              ng-show="form.password.$error.maxlength && vm.submitted">
