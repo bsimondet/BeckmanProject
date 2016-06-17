@@ -39,7 +39,7 @@
                 A last name is required.
       </p>
       <p class="help-block" ng-show="form.lastname.$error.maxlength && vm.submitted">
-            Password must be less than 25 characters.
+            Last Name must be less than 25 characters.
       </p>
       <p class="help-block" ng-show="form.lastname.$error.pattern && vm.submitted" >
                 Name can only contain alphabetic letters.
@@ -90,14 +90,14 @@
                                             'has-error': form.password.$invalid && vm.submitted }">
       <label>Password</label>
       <input type="password" name="password" class="form-control" ng-model="vm.user.password"
-                 ng-minlength="3"
+                 ng-minlength="8"
                  ng-maxlength="25"
                  required
                  mongoose-error/>
       <p class="help-block"
              ng-show="(form.password.$error.minlength || form.password.$error.required)
               && vm.submitted">
-            Password must be at least 3 characters.
+            Password must be at least 8 characters.
       </p>
       <p class="help-block"
              ng-show="form.password.$error.maxlength && vm.submitted">
@@ -115,12 +115,8 @@
                  match="vm.user.password"
                  ng-minlength="3" required/>
       <p class="help-block"
-             ng-show="form.confirmPassword.$error.match && vm.submitted">
+             ng-show="(form.confirmPassword.$error.match || form.confirmPassword.$error.required) && vm.submitted">
             Passwords must match.
-      </p>
-      <p class="help-block"
-             ng-show="form.confirmPassword.$error.required && vm.submitted">
-            Must confirm password.
       </p>
 
     </div>
