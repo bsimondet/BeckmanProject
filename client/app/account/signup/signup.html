@@ -10,6 +10,7 @@
                                                   'has-error': form.name.$invalid && vm.submitted }">
         <label>First Name</label>
         <input type="text" name="firstname" class="form-control" ng-model="vm.user.firstname" autofocus="autofocus"
+                pattern = "[A-Za-z]" title = "Should only contain alphabetic numbers" ng-pattern="/^[a-zA-Z]*$/"
                 ng-maxlength="25"
                 required/>
         <p class="help-block" ng-show="form.firstname.$error.required && vm.submitted" >
@@ -17,6 +18,9 @@
         </p>
         <p class="help-block" ng-show="form.firstname.$error.maxlength && vm.submitted" >
                   Name must be less than 25 characters.
+        </p>
+        <p class="help-block" ng-show="form.firstname.$error.pattern && vm.submitted" >
+                  Name can only contain alphabetic letters.
         </p>
 
       </div>
@@ -27,14 +31,18 @@
                                                 'has-error': form.name.$invalid && vm.submitted }">
       <label>Last Name</label>
       <input type="text" name="lastname" class="form-control" ng-model="vm.user.lastname"
+                ng-pattern="/^[a-zA-Z]*$/"
                 required
                 ng-maxlength="25"
                 mongoose-error/>
-      <p class="help-block" ng-show="form.name.$error.required && vm.submitted">
+      <p class="help-block" ng-show="form.lastname.$error.required && vm.submitted">
                 A last name is required.
       </p>
       <p class="help-block" ng-show="form.lastname.$error.maxlength && vm.submitted">
             Password must be less than 25 characters.
+      </p>
+      <p class="help-block" ng-show="form.lastname.$error.pattern && vm.submitted" >
+                Name can only contain alphabetic letters.
       </p>
     </div>
 
@@ -82,14 +90,14 @@
                                             'has-error': form.password.$invalid && vm.submitted }">
       <label>Password</label>
       <input type="password" name="password" class="form-control" ng-model="vm.user.password"
-                 ng-minlength="8"
+                 ng-minlength="3"
                  ng-maxlength="25"
                  required
                  mongoose-error/>
       <p class="help-block"
              ng-show="(form.password.$error.minlength || form.password.$error.required)
               && vm.submitted">
-            Password must be at least 8 characters.
+            Password must be at least 3 characters.
       </p>
       <p class="help-block"
              ng-show="form.password.$error.maxlength && vm.submitted">
@@ -110,6 +118,11 @@
              ng-show="form.confirmPassword.$error.match && vm.submitted">
             Passwords must match.
       </p>
+      <p class="help-block"
+             ng-show="form.confirmPassword.$error.required && vm.submitted">
+            Must confirm password.
+      </p>
+
     </div>
 
     <div>

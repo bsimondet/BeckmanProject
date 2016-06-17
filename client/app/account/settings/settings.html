@@ -13,16 +13,13 @@
           <input type="password" name="password" class="form-control" ng-model="vm.user.oldPassword"
                 ng.minlength="8"
                 match="vm.user.password"
-                mongoose-error/>
-          <p class="help-block" ng-show="form.password.$error.mongoose">
-              {{ vm.errors.other }}
+                mongoose-error
+                required/>
+          <!-- <p class="help-block" ng-show="form.password.$error.mongoose"> -->
+              <!-- {{ vm.errors.other }} -->
           </p>
-          <p class="help-block" ng-show="form.password.$error.minlength">
-              Password must be at least 8 characters.
-          </p>
-
-          <p class="help-block" ng-show="form.password.$error.match">
-              Current Password must match the existing password.
+          <p class="help-block" ng-show="form.password.$error.required">
+              Must enter the current password.
           </p>
         </div>
 
@@ -52,9 +49,10 @@
 
         </div>
 
-        <p class="help-block"> {{ vm.message }} </p>
+        <!-- <p class="help-block"> {{ vm.message }} </p> -->
 
-        <button class="btn btn-lg btn-primary" type="submit">Save changes</button>
+      <!-- <a href="/login" class="btn btn-lg btn-primary" type="submit" >Save Changes</a> -->
+        <button class="btn btn-lg btn-primary"  type="submit">Save changes</button>
       </form>
     </div>
   </div>
