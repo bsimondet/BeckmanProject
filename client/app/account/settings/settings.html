@@ -10,7 +10,7 @@
         <div class="form-group">
           <label>Current Password</label>
 
-          <input type="password" name="password" class="form-control" ng-model="vm.user.oldPassword"
+          <input type="password" name="password" class="form-control" ng-model="vm.user.oldPassword" autofocus="autofocus"
                 ng.minlength="8"
                 match="vm.user.password"
                 mongoose-error
