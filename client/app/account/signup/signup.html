@@ -113,7 +113,7 @@
       <label>Confirm Password</label>
       <input type="password" name="confirmPassword" class="form-control" ng-model="vm.user.confirmPassword"
                  match="vm.user.password"
-                 ng-minlength="3" required/>
+                 ng-minlength="8" required/>
       <p class="help-block"
              ng-show="(form.confirmPassword.$error.match || form.confirmPassword.$error.required) && vm.submitted">
             Passwords must match.
